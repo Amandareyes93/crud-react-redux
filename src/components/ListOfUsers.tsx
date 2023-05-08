@@ -10,16 +10,12 @@ import {
 	Title,
 } from "@tremor/react";
 
-import { UserId, deleteUserById } from "../../store/users/slice";
-import { useAppDispatch, useAppSelector } from "../hooks/store";
+import { useAppSelector } from "../hooks/store";
+import { useUserActions } from "../hooks/useUserActions";
 
 export default function ListOfUsers() {
 	const users = useAppSelector((state) => state.users);
-	const dispatch = useAppDispatch();
-
-	const handleRemoveUser = (id: UserId) => {
-		dispatch(deleteUserById(id));
-	};
+	const { removeUser } = useUserActions();
 
 	return (
 		<Card>
@@ -73,7 +69,7 @@ export default function ListOfUsers() {
 										/>
 									</svg>
 								</button>
-								<button type="button" onClick={() => handleRemoveUser(item.id)}>
+								<button type="button" onClick={() => removeUser(item.id)}>
 									<svg
 										xmlns="http://www.w3.org/2000/svg"
 										fill="none"
