@@ -10,39 +10,17 @@ import {
 	Title,
 } from "@tremor/react";
 
-const users: {
-	id: string;
-	name: string;
-	email: string;
-	github: string;
-}[] = [
-	{
-		id: "1",
-		name: "Amanda Reyes",
-		email: "amanda_reyesb@hotmail.com",
-		github: "Amandareyes93",
-	},
-	{
-		id: "2",
-		name: "Harrison Chacon",
-		email: "harrisonlchr@gmail.com",
-		github: "Harrisonlchr",
-	},
-	{
-		id: "3",
-		name: "Mariantonieta Chacon",
-		email: "sdgffdgdfhdghgfhfgj",
-		github: "Mariantonieta",
-	},
-	{
-		id: "4",
-		name: "Joaquin Alameda",
-		email: "sdfsdgsfgdghghgh",
-		github: "davidlopez",
-	},
-];
+import { UserId, deleteUserById } from "../../store/users/slice";
+import { useAppDispatch, useAppSelector } from "../hooks/store";
 
 export default function ListOfUsers() {
+	const users = useAppSelector((state) => state.users);
+	const dispatch = useAppDispatch();
+
+	const handleRemoveUser = (id: UserId) => {
+		dispatch(deleteUserById(id));
+	};
+
 	return (
 		<Card>
 			<div style={{ display: "flex" }}>
@@ -95,7 +73,7 @@ export default function ListOfUsers() {
 										/>
 									</svg>
 								</button>
-								<button type="button">
+								<button type="button" onClick={() => handleRemoveUser(item.id)}>
 									<svg
 										xmlns="http://www.w3.org/2000/svg"
 										fill="none"
